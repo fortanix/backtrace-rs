@@ -49,7 +49,6 @@ use core::fmt;
 /// ```
 #[cfg(feature = "std")]
 pub fn trace<F: FnMut(&Frame) -> bool>(cb: F) {
-    let _guard = crate::lock::lock();
     unsafe { trace_unsynchronized(cb) }
 }
 

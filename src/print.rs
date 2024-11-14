@@ -253,7 +253,7 @@ impl BacktraceFrameFmt<'_, '_, '_> {
         match (symbol_name, &self.fmt.format) {
             (Some(name), PrintFmt::Short) => write!(self.fmt.fmt, "{name:#}")?,
             (Some(name), PrintFmt::Full) => write!(self.fmt.fmt, "{name}")?,
-            (None, _) => write!(self.fmt.fmt, "<unknown>")?,
+            (None, _) => write!(self.fmt.fmt, "{:p}", frame_ip)?,
         }
         self.fmt.fmt.write_str("\n")?;
 

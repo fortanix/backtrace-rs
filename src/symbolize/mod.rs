@@ -59,7 +59,6 @@ use rustc_demangle::{try_demangle, Demangle};
 /// ```
 #[cfg(feature = "std")]
 pub fn resolve<F: FnMut(&Symbol)>(addr: *mut c_void, cb: F) {
-    let _guard = crate::lock::lock();
     unsafe { resolve_unsynchronized(addr, cb) }
 }
 
@@ -101,7 +100,6 @@ pub fn resolve<F: FnMut(&Symbol)>(addr: *mut c_void, cb: F) {
 /// ```
 #[cfg(feature = "std")]
 pub fn resolve_frame<F: FnMut(&Symbol)>(frame: &Frame, cb: F) {
-    let _guard = crate::lock::lock();
     unsafe { resolve_frame_unsynchronized(frame, cb) }
 }
 
@@ -422,7 +420,6 @@ impl<'a> fmt::Debug for SymbolName<'a> {
 /// function has any effect.
 #[cfg(feature = "std")]
 pub fn clear_symbol_cache() {
-    let _guard = crate::lock::lock();
     unsafe {
         imp::clear_symbol_cache();
     }
